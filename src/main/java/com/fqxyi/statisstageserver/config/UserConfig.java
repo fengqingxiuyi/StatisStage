@@ -1,6 +1,6 @@
-package com.fqxyi.statisstageserver.module.config;
+package com.fqxyi.statisstageserver.config;
 
-import com.fqxyi.statisstageserver.module.bean.UserBean;
+import com.fqxyi.statisstageserver.bean.UserBean;
 import com.fqxyi.statisstageserver.util.ObjectSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

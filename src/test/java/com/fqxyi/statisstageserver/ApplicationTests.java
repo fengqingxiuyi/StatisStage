@@ -1,6 +1,6 @@
 package com.fqxyi.statisstageserver;
 
-import com.fqxyi.statisstageserver.module.bean.UserBean;
+import com.fqxyi.statisstageserver.bean.UserBean;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
