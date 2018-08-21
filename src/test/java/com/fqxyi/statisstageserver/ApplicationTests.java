@@ -1,6 +1,6 @@
 package com.fqxyi.statisstageserver;
 
-import com.fqxyi.statisstageserver.bean.UserBean;
+import com.fqxyi.statisstageserver.module.clickNum.bean.ClickNumBean;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,29 +13,26 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class ApplicationTests {
 
-//    @Autowired
-//    private StringRedisTemplate stringRedisTemplate;
-
     @Autowired
     //自动导入依赖的bean。byType方式。把配置好的Bean拿来用，完成属性、方法的组装，它可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作。当加上（required=false）时，就算找不到bean也不报错。
-    private RedisTemplate<String, UserBean> redisTemplate;
+    private RedisTemplate<String, ClickNumBean> redisTemplate;
 
     @Test
     public void contextLoads() {
-//        // 保存字符串
-//        stringRedisTemplate.opsForValue().set("aaa", "111");
-//        Assert.assertEquals("111", stringRedisTemplate.opsForValue().get("aaa"));
-
         // 保存对象
-        UserBean userBean = new UserBean("超人", 20);
-        redisTemplate.opsForValue().set(userBean.getUsername(), userBean);
-        userBean = new UserBean("蝙蝠侠", 30);
-        redisTemplate.opsForValue().set(userBean.getUsername(), userBean);
-        userBean = new UserBean("蜘蛛侠", 40);
-        redisTemplate.opsForValue().set(userBean.getUsername(), userBean);
-        Assert.assertEquals(20, redisTemplate.opsForValue().get("超人").getAge().longValue());
-        Assert.assertEquals(30, redisTemplate.opsForValue().get("蝙蝠侠").getAge().longValue());
-        Assert.assertEquals(40, redisTemplate.opsForValue().get("蜘蛛侠").getAge().longValue());
+        ClickNumBean bean = new ClickNumBean();
+        bean.setDate("2018-08-21");
+        bean.setName("点击了Button");
+        bean.setNum(10);
+        redisTemplate.opsForValue().set(bean.getName(), bean);
+        bean = new ClickNumBean();
+        bean.setDate("2018-08-22");
+        bean.setName("点击了TextView");
+        bean.setNum(5);
+        redisTemplate.opsForValue().set(bean.getName(), bean);
+        //
+        Assert.assertEquals(10, redisTemplate.opsForValue().get("点击了Button").getNum());
+        Assert.assertEquals(5, redisTemplate.opsForValue().get("点击了TextView").getNum());
     }
 
 }
