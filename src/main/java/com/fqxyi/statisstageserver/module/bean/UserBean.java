@@ -1,4 +1,4 @@
-package com.fqxyi.statisstage.bean;
+package com.fqxyi.statisstageserver.module.bean;
 
 import java.io.Serializable;
 

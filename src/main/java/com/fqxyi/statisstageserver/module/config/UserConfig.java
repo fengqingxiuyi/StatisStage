@@ -1,7 +1,7 @@
-package com.fqxyi.statisstage.config;
+package com.fqxyi.statisstageserver.module.config;
 
-import com.fqxyi.statisstage.bean.UserBean;
-import com.fqxyi.statisstage.util.ObjectSerializer;
+import com.fqxyi.statisstageserver.module.bean.UserBean;
+import com.fqxyi.statisstageserver.util.ObjectSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -21,9 +21,10 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration注解该类，等价与XML中配置beans；用@Bean标注方法等价于XML中配置bean。
  */
 @Configuration
-public class StatisStageConfig {
+public class UserConfig {
 
-    @Bean //相当于XML中的,放在方法的上面，而不是类，意思是产生一个bean,并交给spring管理。
+    @Bean
+        //相当于XML中的,放在方法的上面，而不是类，意思是产生一个bean,并交给spring管理。
     JedisConnectionFactory jedisConnectionFactory() {
         return new JedisConnectionFactory();
     }

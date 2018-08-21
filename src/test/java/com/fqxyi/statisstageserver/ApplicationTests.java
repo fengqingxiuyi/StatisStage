@@ -1,6 +1,6 @@
-package com.fqxyi.statisstage;
+package com.fqxyi.statisstageserver;
 
-import com.fqxyi.statisstage.bean.UserBean;
+import com.fqxyi.statisstageserver.module.bean.UserBean;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,12 +11,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class StatisStageApplicationTests {
+public class ApplicationTests {
 
 //    @Autowired
 //    private StringRedisTemplate stringRedisTemplate;
 
-    @Autowired //自动导入依赖的bean。byType方式。把配置好的Bean拿来用，完成属性、方法的组装，它可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作。当加上（required=false）时，就算找不到bean也不报错。
+    @Autowired
+    //自动导入依赖的bean。byType方式。把配置好的Bean拿来用，完成属性、方法的组装，它可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作。当加上（required=false）时，就算找不到bean也不报错。
     private RedisTemplate<String, UserBean> redisTemplate;
 
     @Test

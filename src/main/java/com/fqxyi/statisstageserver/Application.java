@@ -1,12 +1,12 @@
-package com.fqxyi.statisstage;
+package com.fqxyi.statisstageserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StatisStageApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(StatisStageApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }

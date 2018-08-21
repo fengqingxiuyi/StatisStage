@@ -1,4 +1,4 @@
-package com.fqxyi.statisstage.util;
+package com.fqxyi.statisstageserver.util;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.serializer.support.DeserializingConverter;
