@@ -6,7 +6,10 @@
     <groupId>com.fqxyi</groupId>
     <artifactId>statisstageserver</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <!-- 本地 -->
+    <!--<packaging>jar</packaging>-->
+    <!-- 部署 -->
+    <packaging>war</packaging>
 
     <name>statisstageserver</name>
     <description>Demo project for Spring Boot</description>
@@ -40,6 +43,22 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 本地 -->
+            <!-- 部署 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 本地 -->
+        <!-- 部署 -->
+        <!-- tomcat -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!-- JSON解析 -->
         <dependency>
@@ -70,6 +89,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- 本地 -->
+            <!-- 部署 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
