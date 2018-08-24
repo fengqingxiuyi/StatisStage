@@ -1,12 +1,13 @@
 package com.fqxyi.statisstageserver.module.clickNum.service;
 
+import com.fqxyi.statisstageserver.module.clickNum.bean.ClickNumBean;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 
 /**
  * @author ShenBF
- * @desc
+ * @desc 点击次数接口
  * @date 2018/8/21
  */
 public interface ClickNumService {
@@ -22,10 +23,10 @@ public interface ClickNumService {
      */
 
     @CachePut(cacheNames = "clickNum", key="#name")
-    int set(String name);
+    ClickNumBean set(String name);
 
     @Cacheable(cacheNames = "clickNum", key="#name")
-    int get(String name);
+    ClickNumBean get(String name);
 
     @CacheEvict(cacheNames = "clickNum", key="#name")
     int del(String name);

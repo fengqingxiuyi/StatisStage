@@ -1,6 +1,7 @@
 package com.fqxyi.statisstageserver.module.clickNum.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author ShenBF
@@ -12,33 +13,13 @@ public class ClickNumBean implements Serializable {
     private static final long serialVersionUID = -1L;
 
     /**
-     * 日期
-     */
-    private String date;
-    /**
-     * 每一天的点击次数
-     */
-    private int num;
-    /**
      * 点击事件名
      */
     private String name;
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
+    /**
+     * 日期集合
+     */
+    private List<ClickNumDateBean> dateBean;
 
     public String getName() {
         return name;
@@ -47,4 +28,13 @@ public class ClickNumBean implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<ClickNumDateBean> getDateBean() {
+        return dateBean;
+    }
+
+    public void setDateBean(List<ClickNumDateBean> dateBean) {
+        this.dateBean = dateBean;
+    }
+
 }

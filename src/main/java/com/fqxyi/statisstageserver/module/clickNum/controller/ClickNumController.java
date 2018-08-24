@@ -1,8 +1,10 @@
 package com.fqxyi.statisstageserver.module.clickNum.controller;
 
+import com.fqxyi.statisstageserver.common.bean.ResponseBean;
 import com.fqxyi.statisstageserver.common.exception.ExceptionConstant;
+import com.fqxyi.statisstageserver.common.util.GsonUtil;
+import com.fqxyi.statisstageserver.module.clickNum.bean.ClickNumBean;
 import com.fqxyi.statisstageserver.module.clickNum.service.ClickNumService;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,65 +23,63 @@ public class ClickNumController {
 
     @RequestMapping("/set")
     public String set(@RequestParam("name") String name) {
-        JSONObject jsonObject = new JSONObject();
+        ResponseBean responseBean = new ResponseBean();
         if (name == null || name.length() == 0) {
-            jsonObject.put("resultCode", ExceptionConstant.CODE_ERR_DATA);
-            jsonObject.put("resultMessage", "name不能为空");
-            return jsonObject.toString();
+            responseBean.resultCode = ExceptionConstant.CODE_ERR_DATA;
+            responseBean.resultMessage = "name不能为空";
+            return GsonUtil.GsonToString(responseBean);
         }
-        int result = clickNumService.set(name);
+        ClickNumBean result = clickNumService.set(name);
         //返回响应数据
-        if (result == ExceptionConstant.CODE_ERR_EX) {
-            jsonObject.put("resultCode", ExceptionConstant.CODE_ERR_EX);
-            jsonObject.put("resultMessage", "服务异常");
+        if (result == null) {
+            responseBean.resultCode = ExceptionConstant.CODE_ERR_EX;
+            responseBean.resultMessage = "服务异常";
         } else {
-            jsonObject.put("resultCode", ExceptionConstant.CODE_OK);
-            jsonObject.put("resultMessage", "统计成功");
+            responseBean.resultCode = ExceptionConstant.CODE_OK;
+            responseBean.resultMessage = "数据设置成功";
         }
-        return jsonObject.toString();
+        return GsonUtil.GsonToString(responseBean);
     }
 
     @RequestMapping("/get")
     public String get(@RequestParam("name") String name) {
-        JSONObject jsonObject = new JSONObject();
+        ResponseBean responseBean = new ResponseBean();
         if (name == null || name.length() == 0) {
-            jsonObject.put("resultCode", ExceptionConstant.CODE_ERR_DATA);
-            jsonObject.put("resultMessage", "name不能为空");
-            return jsonObject.toString();
+            responseBean.resultCode = ExceptionConstant.CODE_ERR_DATA;
+            responseBean.resultMessage = "name不能为空";
+            return GsonUtil.GsonToString(responseBean);
         }
-        int result = clickNumService.get(name);
+        ClickNumBean result = clickNumService.get(name);
         //返回响应数据
-        if (result == ExceptionConstant.CODE_ERR_EX) {
-            jsonObject.put("resultCode", ExceptionConstant.CODE_ERR_EX);
-            jsonObject.put("resultMessage", "服务异常");
-        } else if (result == ExceptionConstant.CODE_ERR_DATA) {
-            jsonObject.put("resultCode", ExceptionConstant.CODE_ERR_DATA);
-            jsonObject.put("resultMessage", "name " + name + " 不存在");
+        if (result == null) {
+            responseBean.resultCode = ExceptionConstant.CODE_ERR_EX;
+            responseBean.resultMessage = "服务异常";
         } else {
-            jsonObject.put("resultCode", ExceptionConstant.CODE_OK);
-            jsonObject.put("resultMessage", "name " + name + " 点击了 " + result + " 次");
+            responseBean.resultCode = ExceptionConstant.CODE_OK;
+            responseBean.resultMessage = "数据获取成功";
+            responseBean.data = result;
         }
-        return jsonObject.toString();
+        return GsonUtil.GsonToString(responseBean);
     }
 
     @RequestMapping("/del")
     public String del(@RequestParam("name") String name) {
-        JSONObject jsonObject = new JSONObject();
+        ResponseBean responseBean = new ResponseBean();
         if (name == null || name.length() == 0) {
-            jsonObject.put("resultCode", ExceptionConstant.CODE_ERR_DATA);
-            jsonObject.put("resultMessage", "name不能为空");
-            return jsonObject.toString();
+            responseBean.resultCode = ExceptionConstant.CODE_ERR_DATA;
+            responseBean.resultMessage = "name不能为空";
+            return GsonUtil.GsonToString(responseBean);
         }
         int result = clickNumService.del(name);
         //返回响应数据
         if (result == ExceptionConstant.CODE_ERR_EX) {
-            jsonObject.put("resultCode", ExceptionConstant.CODE_ERR_EX);
-            jsonObject.put("resultMessage", "服务异常");
+            responseBean.resultCode = ExceptionConstant.CODE_ERR_EX;
+            responseBean.resultMessage = "服务异常";
         } else {
-            jsonObject.put("resultCode", ExceptionConstant.CODE_OK);
-            jsonObject.put("resultMessage", "数据删除成功");
+            responseBean.resultCode = ExceptionConstant.CODE_OK;
+            responseBean.resultMessage = "数据删除成功";
         }
-        return jsonObject.toString();
+        return GsonUtil.GsonToString(responseBean);
     }
 
 }
