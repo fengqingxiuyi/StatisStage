@@ -32,7 +32,13 @@ public class CORSConfig {
                 registry.addMapping("/**")
                         .allowedHeaders("*")
                         .allowedMethods("*")
-                        .allowedOrigins("http://vue.fqxyi.com");
+                        .allowedOrigins(
+                                "http://vue.fqxyi.com",
+                                "http://localhost:8080",
+                                "http://localhost:8081",
+                                "http://localhost:8082",
+                                "http://localhost:8083",
+                                "http://localhost:8084");
             }
         };
     }
