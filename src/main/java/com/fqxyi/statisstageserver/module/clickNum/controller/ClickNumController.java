@@ -4,6 +4,7 @@ import com.fqxyi.statisstageserver.common.bean.ResponseBean;
 import com.fqxyi.statisstageserver.common.exception.ExceptionConstant;
 import com.fqxyi.statisstageserver.common.util.GsonUtil;
 import com.fqxyi.statisstageserver.module.clickNum.bean.ClickNumBean;
+import com.fqxyi.statisstageserver.module.clickNum.bean.ClickNumFedBean;
 import com.fqxyi.statisstageserver.module.clickNum.service.ClickNumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,22 @@ public class ClickNumController {
         } else {
             responseBean.resultCode = ExceptionConstant.CODE_OK;
             responseBean.resultMessage = "数据设置成功";
+        }
+        return GsonUtil.GsonToString(responseBean);
+    }
+
+    @RequestMapping("/getFed")
+    public String getFed() {
+        ResponseBean responseBean = new ResponseBean();
+        ClickNumFedBean result = clickNumService.getFed();
+        //返回响应数据
+        if (result == null) {
+            responseBean.resultCode = ExceptionConstant.CODE_ERR_EX;
+            responseBean.resultMessage = "服务异常";
+        } else {
+            responseBean.resultCode = ExceptionConstant.CODE_OK;
+            responseBean.resultMessage = "数据获取成功";
+            responseBean.data = result;
         }
         return GsonUtil.GsonToString(responseBean);
     }

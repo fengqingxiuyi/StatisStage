@@ -1,6 +1,7 @@
 package com.fqxyi.statisstageserver.module.clickNum.service;
 
 import com.fqxyi.statisstageserver.module.clickNum.bean.ClickNumBean;
+import com.fqxyi.statisstageserver.module.clickNum.bean.ClickNumFedBean;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface ClickNumService {
      */
 
     int set(String name);
+
+    ClickNumFedBean getFed();
 
     List<ClickNumBean> getAll();
 
