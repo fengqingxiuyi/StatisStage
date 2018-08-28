@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author ShenBF
  * @desc 点击次数控制器
@@ -29,9 +31,9 @@ public class ClickNumController {
             responseBean.resultMessage = "name不能为空";
             return GsonUtil.GsonToString(responseBean);
         }
-        ClickNumBean result = clickNumService.set(name);
+        int result = clickNumService.set(name);
         //返回响应数据
-        if (result == null) {
+        if (result == ExceptionConstant.CODE_ERR_EX) {
             responseBean.resultCode = ExceptionConstant.CODE_ERR_EX;
             responseBean.resultMessage = "服务异常";
         } else {
@@ -41,15 +43,10 @@ public class ClickNumController {
         return GsonUtil.GsonToString(responseBean);
     }
 
-    @RequestMapping("/get")
-    public String get(@RequestParam("name") String name) {
+    @RequestMapping("/getAll")
+    public String getAll() {
         ResponseBean responseBean = new ResponseBean();
-        if (name == null || name.length() == 0) {
-            responseBean.resultCode = ExceptionConstant.CODE_ERR_DATA;
-            responseBean.resultMessage = "name不能为空";
-            return GsonUtil.GsonToString(responseBean);
-        }
-        ClickNumBean result = clickNumService.get(name);
+        List<ClickNumBean> result = clickNumService.getAll();
         //返回响应数据
         if (result == null) {
             responseBean.resultCode = ExceptionConstant.CODE_ERR_EX;
@@ -62,15 +59,10 @@ public class ClickNumController {
         return GsonUtil.GsonToString(responseBean);
     }
 
-    @RequestMapping("/del")
-    public String del(@RequestParam("name") String name) {
+    @RequestMapping("/delAll")
+    public String del() {
         ResponseBean responseBean = new ResponseBean();
-        if (name == null || name.length() == 0) {
-            responseBean.resultCode = ExceptionConstant.CODE_ERR_DATA;
-            responseBean.resultMessage = "name不能为空";
-            return GsonUtil.GsonToString(responseBean);
-        }
-        int result = clickNumService.del(name);
+        int result = clickNumService.delAll();
         //返回响应数据
         if (result == ExceptionConstant.CODE_ERR_EX) {
             responseBean.resultCode = ExceptionConstant.CODE_ERR_EX;

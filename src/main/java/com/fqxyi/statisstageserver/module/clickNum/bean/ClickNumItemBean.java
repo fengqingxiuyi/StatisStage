@@ -4,29 +4,29 @@ import java.io.Serializable;
 
 /**
  * @author ShenBF
- * @desc 统计每天点击次数的数据结构
+ * @desc 返回给调用者的数据结构
  * @date 2018/8/24
  */
-public class ClickNumDateBean implements Serializable {
+public class ClickNumItemBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
 
     /**
-     * 日期
+     * 事件名
      */
-    private String date;
+    private String name;
 
     /**
-     * 每一天的点击次数
+     * 该事件的点击次数
      */
     private int num;
 
-    public String getDate() {
-        return date;
+    public String getName() {
+        return name;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getNum() {
@@ -36,5 +36,4 @@ public class ClickNumDateBean implements Serializable {
     public void setNum(int num) {
         this.num = num;
     }
-
 }
