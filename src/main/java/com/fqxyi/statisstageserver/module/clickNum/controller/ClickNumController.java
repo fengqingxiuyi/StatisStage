@@ -59,6 +59,38 @@ public class ClickNumController {
         return GsonUtil.GsonToString(responseBean);
     }
 
+    @RequestMapping("/getAllDate")
+    public String getAllDate() {
+        ResponseBean responseBean = new ResponseBean();
+        List<String> result = clickNumService.getAllDate();
+        //返回响应数据
+        if (result == null) {
+            responseBean.resultCode = ExceptionConstant.CODE_ERR_EX;
+            responseBean.resultMessage = "服务异常";
+        } else {
+            responseBean.resultCode = ExceptionConstant.CODE_OK;
+            responseBean.resultMessage = "数据获取成功";
+            responseBean.data = result;
+        }
+        return GsonUtil.GsonToString(responseBean);
+    }
+
+    @RequestMapping("/getAllName")
+    public String getAllName() {
+        ResponseBean responseBean = new ResponseBean();
+        List<String> result = clickNumService.getAllName();
+        //返回响应数据
+        if (result == null) {
+            responseBean.resultCode = ExceptionConstant.CODE_ERR_EX;
+            responseBean.resultMessage = "服务异常";
+        } else {
+            responseBean.resultCode = ExceptionConstant.CODE_OK;
+            responseBean.resultMessage = "数据获取成功";
+            responseBean.data = result;
+        }
+        return GsonUtil.GsonToString(responseBean);
+    }
+
     @RequestMapping("/delAll")
     public String del() {
         ResponseBean responseBean = new ResponseBean();

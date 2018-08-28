@@ -22,7 +22,9 @@ import java.util.List;
 @Service
 public class ClickNumServiceImpl implements ClickNumService {
 
-    private final String KEY = "ClickNum";
+    private final String KEY = "CLICKNUM";
+    private final String KEY_DATE = "CLICKNUM_DATE";
+    private final String KEY_NAME = "CLICKNUM_NAME";
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -36,6 +38,8 @@ public class ClickNumServiceImpl implements ClickNumService {
             if (TextUtil.isEmpty(date)) {
                 return ExceptionConstant.CODE_ERR_EX;
             }
+            saveStr(KEY_DATE, date);
+            saveStr(KEY_NAME, name);
             //从redis中获取数据
             List<ClickNumBean> list = (List<ClickNumBean>) redisTemplate.opsForValue().get(KEY);
             if (list == null || list.size() == 0) { //数据不存在
@@ -75,6 +79,7 @@ public class ClickNumServiceImpl implements ClickNumService {
                                 if (itemBean.getName().equals(name)) { //name存在
                                     hasName = true;
                                     itemBean.setNum(itemBean.getNum() + 1); //次数+1
+                                    break;
                                 }
                             }
                             if (!hasName) { //name不存在
@@ -84,6 +89,7 @@ public class ClickNumServiceImpl implements ClickNumService {
                                 itemBeanList.add(newItemBean);
                             }
                         }
+                        break;
                     }
                 }
                 if (!hasDate) { //date不存在
@@ -106,6 +112,29 @@ public class ClickNumServiceImpl implements ClickNumService {
         }
     }
 
+    private void saveStr(String key, String data) {
+        //从redis中获取数据
+        List<String> dataList = (List<String>) redisTemplate.opsForValue().get(key);
+        if (dataList == null || dataList.size() == 0) {
+            dataList = new ArrayList<>();
+        }
+        boolean hasData = false;
+        for (String dataStr : dataList) {
+            if (TextUtil.isEmpty(dataStr)) {
+                continue;
+            }
+            if (dataStr.equals(data)) { //data已存在
+                hasData = true;
+                break;
+            }
+        }
+        if (!hasData) { //data不存在
+            dataList.add(data);
+        }
+        //保存数据到redis中
+        redisTemplate.opsForValue().set(key, dataList);
+    }
+
     @Override
     public List<ClickNumBean> getAll() {
         try {
@@ -117,10 +146,32 @@ public class ClickNumServiceImpl implements ClickNumService {
     }
 
     @Override
+    public List<String> getAllDate() {
+        try {
+            //从redis中获取数据
+            return (List<String>) redisTemplate.opsForValue().get(KEY_DATE);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<String> getAllName() {
+        try {
+            //从redis中获取数据
+            return (List<String>) redisTemplate.opsForValue().get(KEY_NAME);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     public int delAll() {
         try {
             //保存数据到redis中
             redisTemplate.opsForValue().set(KEY, null);
+            redisTemplate.opsForValue().set(KEY_DATE, null);
+            redisTemplate.opsForValue().set(KEY_NAME, null);
             return ExceptionConstant.CODE_OK;
         } catch (Exception e) {
             return ExceptionConstant.CODE_ERR_EX;

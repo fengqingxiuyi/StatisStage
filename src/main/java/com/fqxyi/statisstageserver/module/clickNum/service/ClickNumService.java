@@ -25,6 +25,10 @@ public interface ClickNumService {
 
     List<ClickNumBean> getAll();
 
+    List<String> getAllDate();
+
+    List<String> getAllName();
+
     int delAll();
 
 }
