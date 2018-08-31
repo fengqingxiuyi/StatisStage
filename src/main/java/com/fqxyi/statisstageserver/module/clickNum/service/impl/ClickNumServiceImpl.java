@@ -113,7 +113,7 @@ public class ClickNumServiceImpl implements ClickNumService {
                 }
                 if (itemBean.getName().equals(name)) { //name存在
                     existsItemName = true;
-                    if (!existsDate) { //新date
+                    if (dateIndex + 1 > itemBean.getNum().size()) { //新date
                         itemBean.getNum().add(1);
                     } else { //旧date
                         itemBean.getNum().set(dateIndex, itemBean.getNum().get(dateIndex) + 1);
